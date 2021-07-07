@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+if [ $UID == 0 ]; then
+	if [ "$(cat /proc/sys/kernel/randomize_va_space)" = "0" ]; then
+		clear
+		echo
+       		echo "Turning ON aslr "
+      	 	sleep 1.5 
+		clear
+		echo
+		echo -n "aslr : "
+		echo 2 | sudo tee /proc/sys/kernel/randomize_va_space
+		echo
+	else
+		clear
+		echo
+		echo "Turning OFF aslr "
+		sleep 1.5
+		clear
+		echo
+		echo -n "aslr : "
+		echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
+		echo
+	
+	fi
+else
+
+echo -e "\033[0;31m[ERROR] please run run this program as a root!\e[0m"
+exit 1
+fi
